@@ -11,7 +11,12 @@ import Adoption from "./build/contracts/Adoption";
 class App extends Component {
   constructor(props) {
     super(props);
+    // initialize the adopters array with the zero address
+    const adopters = ["","","","","","","","","","","","","","","",""].fill(
+      "0x0000000000000000000000000000000000000000"
+    );
     this.state = {
+      adopters,
       contracts: {},
       web3Provider: null,
       web3: null
@@ -24,31 +29,44 @@ class App extends Component {
   }
 
   async initContract() {
-    console.log("initContract");
     const AdoptionArtifact = TruffleContract(Adoption);
 
     // Set the provider for our contract
-    AdoptionArtifact.setProvider(this.web3Provider);
+    AdoptionArtifact.setProvider(this.state.web3Provider);
 
     this.setState({
       contracts: {
         Adoption: AdoptionArtifact
       }
     });
-    console.log("the state -- %o", this.state);
 
     // Use our contract to retrieve and mark the adopted pets
     await this.markAdopted();
   }
 
   async markAdopted() {
-    console.log("marking adopted")
+    const adoptionInstance = await this.state.contracts.Adoption.deployed();
+    const adopters = await adoptionInstance.getAdopters();
+    this.setState({ adopters });
+    console.log("marking adopted -- %o", this.state.adopters);
+  }
+
+  async handleAdopt(petId) {
+    console.log("the state -- %o", this.state);
+    const adoptionInstance = await this.state.contracts.Adoption.deployed();
+    const accounts = await this.state.web3.eth.getAccounts();
+    console.log("the accounts -- %o", petId);
+    // use the first address as the adopter
+    const result = await adoptionInstance.adopt(petId, { from: accounts[0] });
+    await this.markAdopted();
   }
 
   async initWeb3() {
     // Modern dapp browsers...
     if (window.ethereum) {
-      this.web3Provider = window.ethereum;
+      this.setState({
+        web3Provider: window.ethereum
+      });
       try {
         // Request account access
         await window.ethereum.enable();
@@ -59,15 +77,22 @@ class App extends Component {
     }
     // Legacy dapp browsers...
     else if (window.web3) {
-      this.web3Provider = window.web3.currentProvider;
+      this.setState({
+        web3Provider: window.web3.currentProvider
+      });
     }
     // If no injected web3 instance is detected, fall back to Ganache
     else {
-      this.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+      this.setState({
+        web3Provider: new Web3.providers.HttpProvider("http://localhost:8545")
+      });
     }
+    console.log("this.web3Provider - %o", this.state.web3Provider);
     this.setState({
-      web3: new Web3(this.web3Provider)
+      web3: new Web3(this.state.web3Provider)
     });
+    const accounts = this.state.web3.eth.getAccounts();
+    console.log("the acc -- %o", accounts);
   }
 
   render() {
@@ -77,7 +102,7 @@ class App extends Component {
           <p>
             Pete's Pet Shop
           </p>
-          <PetList pets={pets} />
+          <PetList pets={pets} adopters={this.state.adopters} handleAdopt={this.handleAdopt.bind(this)} />
         </header>
       </div>
     );
