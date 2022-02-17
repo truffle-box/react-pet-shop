@@ -1,0 +1,8 @@
+.Pet {
+  margin-top: 20px;
+}
+
+.age, .breed, .location {
+  font-size: 12pt;
+  text-align: left;
+}
