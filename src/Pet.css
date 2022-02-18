@@ -14,6 +14,16 @@
   height: 300px;
 }
 
+.inactive-adopt-button {
+  margin-top: 10px;
+  font-size: 12pt;
+  text-align: center;
+  background-color: grey;
+  width: 30%;
+  border-radius: 20px;
+  height: 20px;
+}
+
 .adopt-button {
   margin-top: 10px;
   font-size: 12pt;
