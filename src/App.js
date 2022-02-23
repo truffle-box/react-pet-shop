@@ -71,7 +71,7 @@ class App extends Component {
         provider
       });
     } else {
-      console.log("You must install MetaMask to adopt a pet.");
+      alert("You must install MetaMask to adopt a pet.");
     }
   }
 
@@ -83,7 +83,7 @@ class App extends Component {
             Pete's Pet Shop
           </p>
           <div className="PetList">
-            {pets.map((pet, index) => <Pet {...pet} handleAdopt={this.handleAdopt.bind(this, pet.id)} adopter={this.state.adopters[pet.id]} key={index} />)}
+            {pets.map((pet, index) => <Pet {...pet} handleAdopt={() => this.handleAdopt(pet.id)} adopter={this.state.adopters[pet.id]} key={index} />)}
           </div>
         </header>
       </div>
