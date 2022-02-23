@@ -67,7 +67,7 @@ class App extends Component {
       });
       const accounts = await this.state.provider.request({ method: "eth_accounts" });
     } else {
-      console.log("please install mm");
+      console.log("You must install MetaMask to adopt a pet.");
     }
   }
 
