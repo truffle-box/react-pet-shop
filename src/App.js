@@ -11,7 +11,8 @@ import detectEthereumProvider from "@metamask/detect-provider";
 class App extends Component {
   constructor(props) {
     super(props);
-    // initialize the adopters array with the zero address
+    // initialize the adopters array with the zero address - pets that have the
+    // zero address as their adopter are not yet adopted
     const adopters = ["","","","","","","","","","","","","","","",""].fill(
       "0x0000000000000000000000000000000000000000"
     );
@@ -45,20 +46,33 @@ class App extends Component {
   }
 
   // this function determines which pets are adopted and updates the state
+  // from the Adoption contract
   async markAdopted() {
+    // create a reference to the deployed Adoption contract
     const adoptionInstance = await this.state.contracts.Adoption.deployed();
+
+    // make a call to the Adoption contract's `getAdopters` function in order
+    // to determine which pets are already adopted - this retrieves the
+    // addresses that have adopted pets from the blockchain
     const adopters = await adoptionInstance.getAdopters();
+
+    // set the adopters list in the state for this component
     this.setState({ adopters });
   }
 
   async handleAdopt(petId) {
-    // create a reference to our deployed contract
+    // create a reference to the deployed Adoption contract
     const adoptionInstance = await this.state.contracts.Adoption.deployed();
+
+    // get the user's accounts
     const accounts = await this.state.provider.request({
       method: "eth_accounts"
     });
-    // use the first address as the adopter for the pet
+
+    // use the first address as the adopter for the pet - this address
+    // corresponds to the currently selected address in MetaMask
     await adoptionInstance.adopt(petId, { from: accounts[0] });
+
     // update the UI to show all adopted pets as "adopted"
     await this.markAdopted();
   }
@@ -66,11 +80,14 @@ class App extends Component {
   async initProvider() {
     // retrieve a reference to the provider
     const provider = await detectEthereumProvider();
+
     if (provider) {
+      // create a reference to the provider in the state
       this.setState({
         provider
       });
     } else {
+      // tell the user we cannot find a provider and they must install MetaMask
       alert("You must install MetaMask to adopt a pet.");
     }
   }
