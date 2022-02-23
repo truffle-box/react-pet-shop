@@ -28,9 +28,10 @@ class App extends Component {
   }
 
   async initContract() {
+    // use the built artifact to instantiate a TruffleContract object
     const AdoptionArtifact = TruffleContract(Adoption);
 
-    // Set the provider for our contract
+    // set the provider for our contract
     AdoptionArtifact.setProvider(this.state.provider);
 
     this.setState({
@@ -39,10 +40,11 @@ class App extends Component {
       }
     });
 
-    // Use our contract to retrieve and mark the adopted pets
+    // use the Adoption contract to retrieve and mark the adopted pets
     await this.markAdopted();
   }
 
+  // this function determines which pets are adopted and updates the state
   async markAdopted() {
     const adoptionInstance = await this.state.contracts.Adoption.deployed();
     const adopters = await adoptionInstance.getAdopters();
@@ -50,22 +52,24 @@ class App extends Component {
   }
 
   async handleAdopt(petId) {
+    // create a reference to our deployed contract
     const adoptionInstance = await this.state.contracts.Adoption.deployed();
     const accounts = await this.state.provider.request({
       method: "eth_accounts"
     });
-    // use the first address as the adopter
+    // use the first address as the adopter for the pet
     await adoptionInstance.adopt(petId, { from: accounts[0] });
+    // update the UI to show all adopted pets as "adopted"
     await this.markAdopted();
   }
 
   async initProvider() {
+    // retrieve a reference to the provider
     const provider = await detectEthereumProvider();
     if (provider) {
       this.setState({
         provider
       });
-      const accounts = await this.state.provider.request({ method: "eth_accounts" });
     } else {
       console.log("You must install MetaMask to adopt a pet.");
     }
