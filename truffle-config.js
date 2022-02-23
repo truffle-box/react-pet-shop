@@ -3,7 +3,7 @@ module.exports = {
   // for more about customizing your Truffle configuration!
   contracts_build_directory: "./src/build/contracts",
   networks: {
-    development: {
+    ganache: {
       host: "127.0.0.1",
       port: 8545,
       network_id: "*" // match any network id
