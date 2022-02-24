@@ -47,16 +47,11 @@ class App extends Component {
   // this function determines which pets are adopted and updates the state
   // from the Adoption contract
   async markAdopted() {
-    // create a reference to the deployed Adoption contract
-    const adoptionInstance = await this.state.contracts.Adoption.deployed();
 
-    // make a call to the Adoption contract's `getAdopters` function in order
-    // to determine which pets are already adopted - this retrieves the
-    // addresses that have adopted pets from the blockchain
-    const adopters = await adoptionInstance.getAdopters();
+    /*
+     * Replace me...
+     */
 
-    // set the adopters list in the state for this component
-    this.setState({ adopters });
   }
 
   async handleAdopt(petId) {
