@@ -55,20 +55,11 @@ class App extends Component {
   }
 
   async handleAdopt(petId) {
-    // create a reference to the deployed Adoption contract
-    const adoptionInstance = await this.state.contracts.Adoption.deployed();
 
-    // get the user's accounts
-    const accounts = await this.state.provider.request({
-      method: "eth_accounts"
-    });
+    /*
+     * Replace me...
+     */
 
-    // use the first address as the adopter for the pet - this address
-    // corresponds to the currently selected address in MetaMask
-    await adoptionInstance.adopt(petId, { from: accounts[0] });
-
-    // update the UI to show all adopted pets as "adopted"
-    await this.markAdopted();
   }
 
   render() {
