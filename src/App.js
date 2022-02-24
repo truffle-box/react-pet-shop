@@ -37,20 +37,11 @@ class App extends Component {
   }
 
   async initContract() {
-    // use the built artifact to instantiate a TruffleContract object
-    const AdoptionArtifact = TruffleContract(Adoption);
 
-    // set the provider for our contract
-    AdoptionArtifact.setProvider(this.state.provider);
+    /*
+     * Replace me...
+     */
 
-    this.setState({
-      contracts: {
-        Adoption: AdoptionArtifact
-      }
-    });
-
-    // use the Adoption contract to retrieve and mark the adopted pets
-    await this.markAdopted();
   }
 
   // this function determines which pets are adopted and updates the state
