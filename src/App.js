@@ -28,6 +28,14 @@ class App extends Component {
     await this.initContract();
   }
 
+  async initProvider() {
+
+    /*
+     * Replace me...
+     */
+
+  }
+
   async initContract() {
     // use the built artifact to instantiate a TruffleContract object
     const AdoptionArtifact = TruffleContract(Adoption);
@@ -75,21 +83,6 @@ class App extends Component {
 
     // update the UI to show all adopted pets as "adopted"
     await this.markAdopted();
-  }
-
-  async initProvider() {
-    // retrieve a reference to the provider
-    const provider = await detectEthereumProvider();
-
-    if (provider) {
-      // create a reference to the provider in the state
-      this.setState({
-        provider
-      });
-    } else {
-      // tell the user we cannot find a provider and they must install MetaMask
-      alert("You must install MetaMask to adopt a pet.");
-    }
   }
 
   render() {
