@@ -12,7 +12,7 @@ function Pet (props) {
       </div>
   }
 
-  const { age, name, breed, location, picture, id } = props;
+  const { age, name, breed, location, picture } = props;
   return (
     <div className="Pet">
       <div className="name">{name}</div>

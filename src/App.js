@@ -100,7 +100,14 @@ class App extends Component {
             Pete's Pet Shop
           </p>
           <div className="PetList">
-            {pets.map((pet, index) => <Pet {...pet} handleAdopt={() => this.handleAdopt(pet.id)} adopter={this.state.adopters[pet.id]} key={index} />)}
+            {pets.map((pet, index) => {
+              return <Pet
+                {...pet}
+                handleAdopt={() => this.handleAdopt(pet.id)}
+                adopter={this.state.adopters[pet.id]}
+                key={index}
+              />
+            })}
           </div>
         </header>
       </div>
