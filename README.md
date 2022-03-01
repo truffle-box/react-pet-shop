@@ -1,6 +1,6 @@
-# Getting Started with the react truffle box 
+# Getting Started with the react truffle box
 
-This project is a demonstration/tutorial project that utilizes [create-react-app](https://create-react-app.dev/). Its purpose is to demonstrate how a simple app can interact with the ethereum blockchain.
+This project is a demonstration/tutorial project that utilizes [create-react-app](https://create-react-app.dev/). [Click here](https://trufflesuite.com/tutorial/index.html) to go to accompanying tutorial. Its purpose is to demonstrate how a simple app can interact with the ethereum blockchain.
 
 ## Available scripts
 
@@ -21,4 +21,3 @@ You may also see any lint errors in the console.
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
