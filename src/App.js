@@ -28,6 +28,24 @@ class App extends Component {
     await this.initContract();
   }
 
+  // function that creates a reference to the provider injected by MetaMask
+  async initProvider() {
+    // retrieve a reference to the provider
+    const provider = await detectEthereumProvider();
+
+    if (provider) {
+      // create a reference to the provider in the state
+      this.setState({
+        provider
+      });
+    } else {
+      // tell the user we cannot find a provider and they must install MetaMask
+      alert("You must install MetaMask to adopt a pet.");
+    }
+  }
+
+  // function that creates a reference to an object which represents
+  // our Adoption contract living on the blockchain
   async initContract() {
     // use the built artifact to instantiate a TruffleContract object
     const AdoptionArtifact = TruffleContract(Adoption);
@@ -45,7 +63,7 @@ class App extends Component {
     await this.markAdopted();
   }
 
-  // this function determines which pets are adopted and updates the state
+  // function that determines which pets are adopted and updates the state
   // from the Adoption contract
   async markAdopted() {
     // create a reference to the deployed Adoption contract
@@ -60,6 +78,8 @@ class App extends Component {
     this.setState({ adopters });
   }
 
+  // handles a user adopting a pet - it sets an adopter for the pet
+  // and then causes the UI to update
   async handleAdopt(petId) {
     // create a reference to the deployed Adoption contract
     const adoptionInstance = await this.state.contracts.Adoption.deployed();
@@ -75,21 +95,6 @@ class App extends Component {
 
     // update the UI to show all adopted pets as "adopted"
     await this.markAdopted();
-  }
-
-  async initProvider() {
-    // retrieve a reference to the provider
-    const provider = await detectEthereumProvider();
-
-    if (provider) {
-      // create a reference to the provider in the state
-      this.setState({
-        provider
-      });
-    } else {
-      // tell the user we cannot find a provider and they must install MetaMask
-      alert("You must install MetaMask to adopt a pet.");
-    }
   }
 
   render() {
