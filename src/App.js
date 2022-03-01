@@ -28,36 +28,41 @@ class App extends Component {
     await this.initContract();
   }
 
+  // function that creates a reference to the provider injected by MetaMask
   async initProvider() {
 
     /*
-     * Replace me...
+     * replace me...
      */
 
   }
 
+  // function that creates a reference to an object which represents
+  // our Adoption contract living on the blockchain
   async initContract() {
 
     /*
-     * Replace me...
+     * replace me...
      */
 
   }
 
-  // this function determines which pets are adopted and updates the state
+  // function that determines which pets are adopted and updates the state
   // from the Adoption contract
   async markAdopted() {
 
     /*
-     * Replace me...
+     * replace me...
      */
 
   }
 
+  // handles a user adopting a pet - it sets an adopter for the pet
+  // and then causes the UI to update
   async handleAdopt(petId) {
 
     /*
-     * Replace me...
+     * replace me...
      */
 
   }
