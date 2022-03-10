@@ -45,7 +45,7 @@ class App extends Component {
   // our Adoption contract living on the blockchain
   async initContract() {
     // use the built artifact to instantiate a TruffleContract object
-    const AdoptionArtifact = TruffleContract(Adoption);
+    const AdoptionArtifact = window.TruffleContract(Adoption);
 
     // set the provider for our contract
     AdoptionArtifact.setProvider(this.state.provider);
