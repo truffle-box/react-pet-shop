@@ -5,9 +5,6 @@ import pets from "./pets";
 import Adoption from "./build/contracts/Adoption";
 import detectEthereumProvider from "@metamask/detect-provider";
 
-// let app know that about globals loaded in the html
-// global TruffleContract
-
 class App extends Component {
   constructor(props) {
     super(props);
