@@ -21,24 +21,22 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    await this.initProvider();
-    await this.initContract();
+    const provider = await this.initProvider();
+    if (provider) {
+      this.setState(
+        { provider },
+        () => this.initContract()
+      );
+    } else {
+      // tell the user we cannot find a provider and they must install MetaMask
+      alert("You must install MetaMask to adopt a pet.");
+    }
   }
 
   // function that creates a reference to the provider injected by MetaMask
   async initProvider() {
     // retrieve a reference to the provider
-    const provider = await detectEthereumProvider();
-
-    if (provider) {
-      // create a reference to the provider in the state
-      this.setState({
-        provider
-      });
-    } else {
-      // tell the user we cannot find a provider and they must install MetaMask
-      alert("You must install MetaMask to adopt a pet.");
-    }
+    return await detectEthereumProvider();
   }
 
   // function that creates a reference to an object which represents
@@ -54,10 +52,8 @@ class App extends Component {
       contracts: {
         Adoption: AdoptionArtifact
       }
-    });
-
     // use the Adoption contract to retrieve and mark the adopted pets
-    await this.markAdopted();
+    }, () => this.markAdopted());
   }
 
   // function that determines which pets are adopted and updates the state
