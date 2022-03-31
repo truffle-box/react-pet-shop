@@ -34,6 +34,14 @@
   justify-content: space-evenly;
 }
 
+.connect-wallet {
+  height: 100px;
+  width: 150px;
+  border-radius: 20px;
+  background-color: green;
+  cursor: pointer;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
